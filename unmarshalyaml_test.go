@@ -4033,7 +4033,7 @@ func TestLinkExampleUnmarshalYAML(t *testing.T) {
 				return
 			}
 			if userid.description != "the user identifier, as userId" {
-				t.Errorf("unexpected paths./users/{userid}/address.description: %s", userid.description)
+				t.Errorf("unexpected paths./users/{userid}/address.dEscription: %s", userid.description)
 				return
 			}
 			if userid.schema.type_ != "string" {

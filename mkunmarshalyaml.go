@@ -20,6 +20,18 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	g.Printf("\nfunc q(b []byte) []byte {")
+	g.Import("", "bytes")
+	g.Printf("\nif !bytes.HasPrefix(b, []byte(\"#\")) {")
+	g.Printf("\nreturn b")
+	g.Printf("\n}")
+	g.Printf("\nif bytes.ContainsRune(b, '\\'') {")
+	g.Printf("\nreturn append([]byte{'\"'}, append(b, '\"')...)")
+	g.Printf("\n}")
+	g.Printf("\nreturn append([]byte{'\\''}, append(b, '\\'')...)")
+	g.Printf("\n}")
+
 	for _, decl := range f.Decls {
 		genDecl, ok := decl.(*ast.GenDecl)
 		if !ok {
@@ -54,7 +66,7 @@ func main() {
 					g.Printf("\nif referenceBytes, ok := proxy[\"$ref\"]; ok {")
 					g.Printf("\nvar referenceVal string")
 					g.Import("yaml", "github.com/goccy/go-yaml")
-					g.Printf("\nif err := yaml.Unmarshal(referenceBytes, &referenceVal); err != nil {")
+					g.Printf("\nif err := yaml.Unmarshal(q(referenceBytes), &referenceVal); err != nil {")
 					g.Printf("\nreturn err")
 					g.Printf("\n}")
 					g.Printf("\nv.reference = referenceVal")
@@ -133,7 +145,15 @@ func main() {
 
 				typName := strings.TrimPrefix(ast2type(field.Type), "*")
 				g.Printf("\nvar %sVal %s", fn, typName)
-				g.Printf("\nif err := yaml.Unmarshal(%sBytes, &%[1]sVal); err != nil {", fn)
+				g.Printf("\nif err := yaml.Unmarshal(")
+				if typName == "string" {
+					g.Printf("q(")
+				}
+				g.Printf("%sBytes", fn)
+				if typName == "string" {
+					g.Printf(")")
+				}
+				g.Printf(", &%sVal); err != nil {", fn)
 				g.Printf("\nreturn err")
 				g.Printf("\n}")
 				g.Printf("\nv.%s = ", fn)

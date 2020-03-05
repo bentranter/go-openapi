@@ -3,6 +3,7 @@
 package openapi
 
 import (
+	"bytes"
 	"errors"
 	"net/url"
 	"regexp"
@@ -10,6 +11,16 @@ import (
 
 	yaml "github.com/goccy/go-yaml"
 )
+
+func q(b []byte) []byte {
+	if !bytes.HasPrefix(b, []byte("#")) {
+		return b
+	}
+	if bytes.ContainsRune(b, '\'') {
+		return append([]byte{'"'}, append(b, '"')...)
+	}
+	return append([]byte{'\''}, append(b, '\'')...)
+}
 
 func (v *OpenAPI) UnmarshalYAML(b []byte) error {
 	var proxy map[string]raw
@@ -22,7 +33,7 @@ func (v *OpenAPI) UnmarshalYAML(b []byte) error {
 		return ErrRequired("openapi")
 	}
 	var openapiVal string
-	if err := yaml.Unmarshal(openapiBytes, &openapiVal); err != nil {
+	if err := yaml.Unmarshal(q(openapiBytes), &openapiVal); err != nil {
 		return err
 	}
 	v.openapi = openapiVal
@@ -133,7 +144,7 @@ func (v *Info) UnmarshalYAML(b []byte) error {
 		return ErrRequired("title")
 	}
 	var titleVal string
-	if err := yaml.Unmarshal(titleBytes, &titleVal); err != nil {
+	if err := yaml.Unmarshal(q(titleBytes), &titleVal); err != nil {
 		return err
 	}
 	v.title = titleVal
@@ -141,7 +152,7 @@ func (v *Info) UnmarshalYAML(b []byte) error {
 
 	if descriptionBytes, ok := proxy["description"]; ok {
 		var descriptionVal string
-		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+		if err := yaml.Unmarshal(q(descriptionBytes), &descriptionVal); err != nil {
 			return err
 		}
 		v.description = descriptionVal
@@ -150,7 +161,7 @@ func (v *Info) UnmarshalYAML(b []byte) error {
 
 	if termsOfServiceBytes, ok := proxy["termsOfService"]; ok {
 		var termsOfServiceVal string
-		if err := yaml.Unmarshal(termsOfServiceBytes, &termsOfServiceVal); err != nil {
+		if err := yaml.Unmarshal(q(termsOfServiceBytes), &termsOfServiceVal); err != nil {
 			return err
 		}
 		v.termsOfService = termsOfServiceVal
@@ -186,7 +197,7 @@ func (v *Info) UnmarshalYAML(b []byte) error {
 		return ErrRequired("version")
 	}
 	var versionVal string
-	if err := yaml.Unmarshal(versionBytes, &versionVal); err != nil {
+	if err := yaml.Unmarshal(q(versionBytes), &versionVal); err != nil {
 		return err
 	}
 	v.version = versionVal
@@ -222,7 +233,7 @@ func (v *Contact) UnmarshalYAML(b []byte) error {
 
 	if nameBytes, ok := proxy["name"]; ok {
 		var nameVal string
-		if err := yaml.Unmarshal(nameBytes, &nameVal); err != nil {
+		if err := yaml.Unmarshal(q(nameBytes), &nameVal); err != nil {
 			return err
 		}
 		v.name = nameVal
@@ -231,7 +242,7 @@ func (v *Contact) UnmarshalYAML(b []byte) error {
 
 	if urlBytes, ok := proxy["url"]; ok {
 		var urlVal string
-		if err := yaml.Unmarshal(urlBytes, &urlVal); err != nil {
+		if err := yaml.Unmarshal(q(urlBytes), &urlVal); err != nil {
 			return err
 		}
 		v.url = urlVal
@@ -246,7 +257,7 @@ func (v *Contact) UnmarshalYAML(b []byte) error {
 
 	if emailBytes, ok := proxy["email"]; ok {
 		var emailVal string
-		if err := yaml.Unmarshal(emailBytes, &emailVal); err != nil {
+		if err := yaml.Unmarshal(q(emailBytes), &emailVal); err != nil {
 			return err
 		}
 		v.email = emailVal
@@ -293,7 +304,7 @@ func (v *License) UnmarshalYAML(b []byte) error {
 		return ErrRequired("name")
 	}
 	var nameVal string
-	if err := yaml.Unmarshal(nameBytes, &nameVal); err != nil {
+	if err := yaml.Unmarshal(q(nameBytes), &nameVal); err != nil {
 		return err
 	}
 	v.name = nameVal
@@ -301,7 +312,7 @@ func (v *License) UnmarshalYAML(b []byte) error {
 
 	if urlBytes, ok := proxy["url"]; ok {
 		var urlVal string
-		if err := yaml.Unmarshal(urlBytes, &urlVal); err != nil {
+		if err := yaml.Unmarshal(q(urlBytes), &urlVal); err != nil {
 			return err
 		}
 		v.url = urlVal
@@ -347,7 +358,7 @@ func (v *Server) UnmarshalYAML(b []byte) error {
 		return ErrRequired("url")
 	}
 	var urlVal string
-	if err := yaml.Unmarshal(urlBytes, &urlVal); err != nil {
+	if err := yaml.Unmarshal(q(urlBytes), &urlVal); err != nil {
 		return err
 	}
 	v.url = urlVal
@@ -359,7 +370,7 @@ func (v *Server) UnmarshalYAML(b []byte) error {
 
 	if descriptionBytes, ok := proxy["description"]; ok {
 		var descriptionVal string
-		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+		if err := yaml.Unmarshal(q(descriptionBytes), &descriptionVal); err != nil {
 			return err
 		}
 		v.description = descriptionVal
@@ -417,7 +428,7 @@ func (v *ServerVariable) UnmarshalYAML(b []byte) error {
 		return ErrRequired("default")
 	}
 	var default_Val string
-	if err := yaml.Unmarshal(default_Bytes, &default_Val); err != nil {
+	if err := yaml.Unmarshal(q(default_Bytes), &default_Val); err != nil {
 		return err
 	}
 	v.default_ = default_Val
@@ -425,7 +436,7 @@ func (v *ServerVariable) UnmarshalYAML(b []byte) error {
 
 	if descriptionBytes, ok := proxy["description"]; ok {
 		var descriptionVal string
-		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+		if err := yaml.Unmarshal(q(descriptionBytes), &descriptionVal); err != nil {
 			return err
 		}
 		v.description = descriptionVal
@@ -614,7 +625,7 @@ func (v *PathItem) UnmarshalYAML(b []byte) error {
 
 	if summaryBytes, ok := proxy["summary"]; ok {
 		var summaryVal string
-		if err := yaml.Unmarshal(summaryBytes, &summaryVal); err != nil {
+		if err := yaml.Unmarshal(q(summaryBytes), &summaryVal); err != nil {
 			return err
 		}
 		v.summary = summaryVal
@@ -623,7 +634,7 @@ func (v *PathItem) UnmarshalYAML(b []byte) error {
 
 	if descriptionBytes, ok := proxy["description"]; ok {
 		var descriptionVal string
-		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+		if err := yaml.Unmarshal(q(descriptionBytes), &descriptionVal); err != nil {
 			return err
 		}
 		v.description = descriptionVal
@@ -759,7 +770,7 @@ func (v *Operation) UnmarshalYAML(b []byte) error {
 
 	if summaryBytes, ok := proxy["summary"]; ok {
 		var summaryVal string
-		if err := yaml.Unmarshal(summaryBytes, &summaryVal); err != nil {
+		if err := yaml.Unmarshal(q(summaryBytes), &summaryVal); err != nil {
 			return err
 		}
 		v.summary = summaryVal
@@ -768,7 +779,7 @@ func (v *Operation) UnmarshalYAML(b []byte) error {
 
 	if descriptionBytes, ok := proxy["description"]; ok {
 		var descriptionVal string
-		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+		if err := yaml.Unmarshal(q(descriptionBytes), &descriptionVal); err != nil {
 			return err
 		}
 		v.description = descriptionVal
@@ -786,7 +797,7 @@ func (v *Operation) UnmarshalYAML(b []byte) error {
 
 	if operationIDBytes, ok := proxy["operationId"]; ok {
 		var operationIDVal string
-		if err := yaml.Unmarshal(operationIDBytes, &operationIDVal); err != nil {
+		if err := yaml.Unmarshal(q(operationIDBytes), &operationIDVal); err != nil {
 			return err
 		}
 		v.operationID = operationIDVal
@@ -888,7 +899,7 @@ func (v *ExternalDocumentation) UnmarshalYAML(b []byte) error {
 
 	if descriptionBytes, ok := proxy["description"]; ok {
 		var descriptionVal string
-		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+		if err := yaml.Unmarshal(q(descriptionBytes), &descriptionVal); err != nil {
 			return err
 		}
 		v.description = descriptionVal
@@ -900,7 +911,7 @@ func (v *ExternalDocumentation) UnmarshalYAML(b []byte) error {
 		return ErrRequired("url")
 	}
 	var urlVal string
-	if err := yaml.Unmarshal(urlBytes, &urlVal); err != nil {
+	if err := yaml.Unmarshal(q(urlBytes), &urlVal); err != nil {
 		return err
 	}
 	v.url = urlVal
@@ -939,7 +950,7 @@ func (v *Parameter) UnmarshalYAML(b []byte) error {
 	}
 	if referenceBytes, ok := proxy["$ref"]; ok {
 		var referenceVal string
-		if err := yaml.Unmarshal(referenceBytes, &referenceVal); err != nil {
+		if err := yaml.Unmarshal(q(referenceBytes), &referenceVal); err != nil {
 			return err
 		}
 		v.reference = referenceVal
@@ -952,7 +963,7 @@ func (v *Parameter) UnmarshalYAML(b []byte) error {
 		return ErrRequired("name")
 	}
 	var nameVal string
-	if err := yaml.Unmarshal(nameBytes, &nameVal); err != nil {
+	if err := yaml.Unmarshal(q(nameBytes), &nameVal); err != nil {
 		return err
 	}
 	v.name = nameVal
@@ -963,7 +974,7 @@ func (v *Parameter) UnmarshalYAML(b []byte) error {
 		return ErrRequired("in")
 	}
 	var inVal string
-	if err := yaml.Unmarshal(inBytes, &inVal); err != nil {
+	if err := yaml.Unmarshal(q(inBytes), &inVal); err != nil {
 		return err
 	}
 	v.in = inVal
@@ -975,7 +986,7 @@ func (v *Parameter) UnmarshalYAML(b []byte) error {
 
 	if descriptionBytes, ok := proxy["description"]; ok {
 		var descriptionVal string
-		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+		if err := yaml.Unmarshal(q(descriptionBytes), &descriptionVal); err != nil {
 			return err
 		}
 		v.description = descriptionVal
@@ -1011,7 +1022,7 @@ func (v *Parameter) UnmarshalYAML(b []byte) error {
 
 	if styleBytes, ok := proxy["style"]; ok {
 		var styleVal string
-		if err := yaml.Unmarshal(styleBytes, &styleVal); err != nil {
+		if err := yaml.Unmarshal(q(styleBytes), &styleVal); err != nil {
 			return err
 		}
 		v.style = styleVal
@@ -1101,7 +1112,7 @@ func (v *RequestBody) UnmarshalYAML(b []byte) error {
 	}
 	if referenceBytes, ok := proxy["$ref"]; ok {
 		var referenceVal string
-		if err := yaml.Unmarshal(referenceBytes, &referenceVal); err != nil {
+		if err := yaml.Unmarshal(q(referenceBytes), &referenceVal); err != nil {
 			return err
 		}
 		v.reference = referenceVal
@@ -1111,7 +1122,7 @@ func (v *RequestBody) UnmarshalYAML(b []byte) error {
 
 	if descriptionBytes, ok := proxy["description"]; ok {
 		var descriptionVal string
-		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+		if err := yaml.Unmarshal(q(descriptionBytes), &descriptionVal); err != nil {
 			return err
 		}
 		v.description = descriptionVal
@@ -1232,7 +1243,7 @@ func (v *Encoding) UnmarshalYAML(b []byte) error {
 
 	if contentTypeBytes, ok := proxy["contentType"]; ok {
 		var contentTypeVal string
-		if err := yaml.Unmarshal(contentTypeBytes, &contentTypeVal); err != nil {
+		if err := yaml.Unmarshal(q(contentTypeBytes), &contentTypeVal); err != nil {
 			return err
 		}
 		v.contentType = contentTypeVal
@@ -1250,7 +1261,7 @@ func (v *Encoding) UnmarshalYAML(b []byte) error {
 
 	if styleBytes, ok := proxy["style"]; ok {
 		var styleVal string
-		if err := yaml.Unmarshal(styleBytes, &styleVal); err != nil {
+		if err := yaml.Unmarshal(q(styleBytes), &styleVal); err != nil {
 			return err
 		}
 		v.style = styleVal
@@ -1348,7 +1359,7 @@ func (v *Response) UnmarshalYAML(b []byte) error {
 	}
 	if referenceBytes, ok := proxy["$ref"]; ok {
 		var referenceVal string
-		if err := yaml.Unmarshal(referenceBytes, &referenceVal); err != nil {
+		if err := yaml.Unmarshal(q(referenceBytes), &referenceVal); err != nil {
 			return err
 		}
 		v.reference = referenceVal
@@ -1361,7 +1372,7 @@ func (v *Response) UnmarshalYAML(b []byte) error {
 		return ErrRequired("description")
 	}
 	var descriptionVal string
-	if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+	if err := yaml.Unmarshal(q(descriptionBytes), &descriptionVal); err != nil {
 		return err
 	}
 	v.description = descriptionVal
@@ -1423,7 +1434,7 @@ func (v *Callback) UnmarshalYAML(b []byte) error {
 	}
 	if referenceBytes, ok := proxy["$ref"]; ok {
 		var referenceVal string
-		if err := yaml.Unmarshal(referenceBytes, &referenceVal); err != nil {
+		if err := yaml.Unmarshal(q(referenceBytes), &referenceVal); err != nil {
 			return err
 		}
 		v.reference = referenceVal
@@ -1475,7 +1486,7 @@ func (v *Example) UnmarshalYAML(b []byte) error {
 	}
 	if referenceBytes, ok := proxy["$ref"]; ok {
 		var referenceVal string
-		if err := yaml.Unmarshal(referenceBytes, &referenceVal); err != nil {
+		if err := yaml.Unmarshal(q(referenceBytes), &referenceVal); err != nil {
 			return err
 		}
 		v.reference = referenceVal
@@ -1485,7 +1496,7 @@ func (v *Example) UnmarshalYAML(b []byte) error {
 
 	if summaryBytes, ok := proxy["summary"]; ok {
 		var summaryVal string
-		if err := yaml.Unmarshal(summaryBytes, &summaryVal); err != nil {
+		if err := yaml.Unmarshal(q(summaryBytes), &summaryVal); err != nil {
 			return err
 		}
 		v.summary = summaryVal
@@ -1494,7 +1505,7 @@ func (v *Example) UnmarshalYAML(b []byte) error {
 
 	if descriptionBytes, ok := proxy["description"]; ok {
 		var descriptionVal string
-		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+		if err := yaml.Unmarshal(q(descriptionBytes), &descriptionVal); err != nil {
 			return err
 		}
 		v.description = descriptionVal
@@ -1512,7 +1523,7 @@ func (v *Example) UnmarshalYAML(b []byte) error {
 
 	if externalValueBytes, ok := proxy["externalValue"]; ok {
 		var externalValueVal string
-		if err := yaml.Unmarshal(externalValueBytes, &externalValueVal); err != nil {
+		if err := yaml.Unmarshal(q(externalValueBytes), &externalValueVal); err != nil {
 			return err
 		}
 		v.externalValue = externalValueVal
@@ -1548,7 +1559,7 @@ func (v *Link) UnmarshalYAML(b []byte) error {
 	}
 	if referenceBytes, ok := proxy["$ref"]; ok {
 		var referenceVal string
-		if err := yaml.Unmarshal(referenceBytes, &referenceVal); err != nil {
+		if err := yaml.Unmarshal(q(referenceBytes), &referenceVal); err != nil {
 			return err
 		}
 		v.reference = referenceVal
@@ -1558,7 +1569,7 @@ func (v *Link) UnmarshalYAML(b []byte) error {
 
 	if operationRefBytes, ok := proxy["operationRef"]; ok {
 		var operationRefVal string
-		if err := yaml.Unmarshal(operationRefBytes, &operationRefVal); err != nil {
+		if err := yaml.Unmarshal(q(operationRefBytes), &operationRefVal); err != nil {
 			return err
 		}
 		v.operationRef = operationRefVal
@@ -1567,7 +1578,7 @@ func (v *Link) UnmarshalYAML(b []byte) error {
 
 	if operationIDBytes, ok := proxy["operationId"]; ok {
 		var operationIDVal string
-		if err := yaml.Unmarshal(operationIDBytes, &operationIDVal); err != nil {
+		if err := yaml.Unmarshal(q(operationIDBytes), &operationIDVal); err != nil {
 			return err
 		}
 		v.operationID = operationIDVal
@@ -1594,7 +1605,7 @@ func (v *Link) UnmarshalYAML(b []byte) error {
 
 	if descriptionBytes, ok := proxy["description"]; ok {
 		var descriptionVal string
-		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+		if err := yaml.Unmarshal(q(descriptionBytes), &descriptionVal); err != nil {
 			return err
 		}
 		v.description = descriptionVal
@@ -1639,7 +1650,7 @@ func (v *Header) UnmarshalYAML(b []byte) error {
 	}
 	if referenceBytes, ok := proxy["$ref"]; ok {
 		var referenceVal string
-		if err := yaml.Unmarshal(referenceBytes, &referenceVal); err != nil {
+		if err := yaml.Unmarshal(q(referenceBytes), &referenceVal); err != nil {
 			return err
 		}
 		v.reference = referenceVal
@@ -1649,7 +1660,7 @@ func (v *Header) UnmarshalYAML(b []byte) error {
 
 	if descriptionBytes, ok := proxy["description"]; ok {
 		var descriptionVal string
-		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+		if err := yaml.Unmarshal(q(descriptionBytes), &descriptionVal); err != nil {
 			return err
 		}
 		v.description = descriptionVal
@@ -1685,7 +1696,7 @@ func (v *Header) UnmarshalYAML(b []byte) error {
 
 	if styleBytes, ok := proxy["style"]; ok {
 		var styleVal string
-		if err := yaml.Unmarshal(styleBytes, &styleVal); err != nil {
+		if err := yaml.Unmarshal(q(styleBytes), &styleVal); err != nil {
 			return err
 		}
 		v.style = styleVal
@@ -1779,7 +1790,7 @@ func (v *Tag) UnmarshalYAML(b []byte) error {
 		return ErrRequired("name")
 	}
 	var nameVal string
-	if err := yaml.Unmarshal(nameBytes, &nameVal); err != nil {
+	if err := yaml.Unmarshal(q(nameBytes), &nameVal); err != nil {
 		return err
 	}
 	v.name = nameVal
@@ -1787,7 +1798,7 @@ func (v *Tag) UnmarshalYAML(b []byte) error {
 
 	if descriptionBytes, ok := proxy["description"]; ok {
 		var descriptionVal string
-		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+		if err := yaml.Unmarshal(q(descriptionBytes), &descriptionVal); err != nil {
 			return err
 		}
 		v.description = descriptionVal
@@ -1832,7 +1843,7 @@ func (v *Schema) UnmarshalYAML(b []byte) error {
 	}
 	if referenceBytes, ok := proxy["$ref"]; ok {
 		var referenceVal string
-		if err := yaml.Unmarshal(referenceBytes, &referenceVal); err != nil {
+		if err := yaml.Unmarshal(q(referenceBytes), &referenceVal); err != nil {
 			return err
 		}
 		v.reference = referenceVal
@@ -1842,7 +1853,7 @@ func (v *Schema) UnmarshalYAML(b []byte) error {
 
 	if titleBytes, ok := proxy["title"]; ok {
 		var titleVal string
-		if err := yaml.Unmarshal(titleBytes, &titleVal); err != nil {
+		if err := yaml.Unmarshal(q(titleBytes), &titleVal); err != nil {
 			return err
 		}
 		v.title = titleVal
@@ -1914,7 +1925,7 @@ func (v *Schema) UnmarshalYAML(b []byte) error {
 
 	if patternBytes, ok := proxy["pattern"]; ok {
 		var patternVal string
-		if err := yaml.Unmarshal(patternBytes, &patternVal); err != nil {
+		if err := yaml.Unmarshal(q(patternBytes), &patternVal); err != nil {
 			return err
 		}
 		v.pattern = patternVal
@@ -1977,7 +1988,7 @@ func (v *Schema) UnmarshalYAML(b []byte) error {
 
 	if type_Bytes, ok := proxy["type"]; ok {
 		var type_Val string
-		if err := yaml.Unmarshal(type_Bytes, &type_Val); err != nil {
+		if err := yaml.Unmarshal(q(type_Bytes), &type_Val); err != nil {
 			return err
 		}
 		v.type_ = type_Val
@@ -2049,7 +2060,7 @@ func (v *Schema) UnmarshalYAML(b []byte) error {
 
 	if descriptionBytes, ok := proxy["description"]; ok {
 		var descriptionVal string
-		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+		if err := yaml.Unmarshal(q(descriptionBytes), &descriptionVal); err != nil {
 			return err
 		}
 		v.description = descriptionVal
@@ -2058,7 +2069,7 @@ func (v *Schema) UnmarshalYAML(b []byte) error {
 
 	if formatBytes, ok := proxy["format"]; ok {
 		var formatVal string
-		if err := yaml.Unmarshal(formatBytes, &formatVal); err != nil {
+		if err := yaml.Unmarshal(q(formatBytes), &formatVal); err != nil {
 			return err
 		}
 		v.format = formatVal
@@ -2067,7 +2078,7 @@ func (v *Schema) UnmarshalYAML(b []byte) error {
 
 	if default_Bytes, ok := proxy["default"]; ok {
 		var default_Val string
-		if err := yaml.Unmarshal(default_Bytes, &default_Val); err != nil {
+		if err := yaml.Unmarshal(q(default_Bytes), &default_Val); err != nil {
 			return err
 		}
 		v.default_ = default_Val
@@ -2176,7 +2187,7 @@ func (v *Discriminator) UnmarshalYAML(b []byte) error {
 
 	if propertyNameBytes, ok := proxy["propertyName"]; ok {
 		var propertyNameVal string
-		if err := yaml.Unmarshal(propertyNameBytes, &propertyNameVal); err != nil {
+		if err := yaml.Unmarshal(q(propertyNameBytes), &propertyNameVal); err != nil {
 			return err
 		}
 		v.propertyName = propertyNameVal
@@ -2207,7 +2218,7 @@ func (v *XML) UnmarshalYAML(b []byte) error {
 
 	if nameBytes, ok := proxy["name"]; ok {
 		var nameVal string
-		if err := yaml.Unmarshal(nameBytes, &nameVal); err != nil {
+		if err := yaml.Unmarshal(q(nameBytes), &nameVal); err != nil {
 			return err
 		}
 		v.name = nameVal
@@ -2216,7 +2227,7 @@ func (v *XML) UnmarshalYAML(b []byte) error {
 
 	if namespaceBytes, ok := proxy["namespace"]; ok {
 		var namespaceVal string
-		if err := yaml.Unmarshal(namespaceBytes, &namespaceVal); err != nil {
+		if err := yaml.Unmarshal(q(namespaceBytes), &namespaceVal); err != nil {
 			return err
 		}
 		v.namespace = namespaceVal
@@ -2225,7 +2236,7 @@ func (v *XML) UnmarshalYAML(b []byte) error {
 
 	if prefixBytes, ok := proxy["prefix"]; ok {
 		var prefixVal string
-		if err := yaml.Unmarshal(prefixBytes, &prefixVal); err != nil {
+		if err := yaml.Unmarshal(q(prefixBytes), &prefixVal); err != nil {
 			return err
 		}
 		v.prefix = prefixVal
@@ -2279,7 +2290,7 @@ func (v *SecurityScheme) UnmarshalYAML(b []byte) error {
 	}
 	if referenceBytes, ok := proxy["$ref"]; ok {
 		var referenceVal string
-		if err := yaml.Unmarshal(referenceBytes, &referenceVal); err != nil {
+		if err := yaml.Unmarshal(q(referenceBytes), &referenceVal); err != nil {
 			return err
 		}
 		v.reference = referenceVal
@@ -2289,7 +2300,7 @@ func (v *SecurityScheme) UnmarshalYAML(b []byte) error {
 
 	if type_Bytes, ok := proxy["type"]; ok {
 		var type_Val string
-		if err := yaml.Unmarshal(type_Bytes, &type_Val); err != nil {
+		if err := yaml.Unmarshal(q(type_Bytes), &type_Val); err != nil {
 			return err
 		}
 		v.type_ = type_Val
@@ -2304,7 +2315,7 @@ func (v *SecurityScheme) UnmarshalYAML(b []byte) error {
 
 	if descriptionBytes, ok := proxy["description"]; ok {
 		var descriptionVal string
-		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+		if err := yaml.Unmarshal(q(descriptionBytes), &descriptionVal); err != nil {
 			return err
 		}
 		v.description = descriptionVal
@@ -2313,7 +2324,7 @@ func (v *SecurityScheme) UnmarshalYAML(b []byte) error {
 
 	if nameBytes, ok := proxy["name"]; ok {
 		var nameVal string
-		if err := yaml.Unmarshal(nameBytes, &nameVal); err != nil {
+		if err := yaml.Unmarshal(q(nameBytes), &nameVal); err != nil {
 			return err
 		}
 		v.name = nameVal
@@ -2322,7 +2333,7 @@ func (v *SecurityScheme) UnmarshalYAML(b []byte) error {
 
 	if inBytes, ok := proxy["in"]; ok {
 		var inVal string
-		if err := yaml.Unmarshal(inBytes, &inVal); err != nil {
+		if err := yaml.Unmarshal(q(inBytes), &inVal); err != nil {
 			return err
 		}
 		v.in = inVal
@@ -2337,7 +2348,7 @@ func (v *SecurityScheme) UnmarshalYAML(b []byte) error {
 
 	if schemeBytes, ok := proxy["scheme"]; ok {
 		var schemeVal string
-		if err := yaml.Unmarshal(schemeBytes, &schemeVal); err != nil {
+		if err := yaml.Unmarshal(q(schemeBytes), &schemeVal); err != nil {
 			return err
 		}
 		v.scheme = schemeVal
@@ -2346,7 +2357,7 @@ func (v *SecurityScheme) UnmarshalYAML(b []byte) error {
 
 	if bearerFormatBytes, ok := proxy["bearerFormat"]; ok {
 		var bearerFormatVal string
-		if err := yaml.Unmarshal(bearerFormatBytes, &bearerFormatVal); err != nil {
+		if err := yaml.Unmarshal(q(bearerFormatBytes), &bearerFormatVal); err != nil {
 			return err
 		}
 		v.bearerFormat = bearerFormatVal
@@ -2364,7 +2375,7 @@ func (v *SecurityScheme) UnmarshalYAML(b []byte) error {
 
 	if openIDConnectURLBytes, ok := proxy["openIdConnectUrl"]; ok {
 		var openIDConnectURLVal string
-		if err := yaml.Unmarshal(openIDConnectURLBytes, &openIDConnectURLVal); err != nil {
+		if err := yaml.Unmarshal(q(openIDConnectURLBytes), &openIDConnectURLVal); err != nil {
 			return err
 		}
 		v.openIDConnectURL = openIDConnectURLVal
@@ -2471,7 +2482,7 @@ func (v *OAuthFlow) UnmarshalYAML(b []byte) error {
 
 	if authorizationURLBytes, ok := proxy["authorizationUrl"]; ok {
 		var authorizationURLVal string
-		if err := yaml.Unmarshal(authorizationURLBytes, &authorizationURLVal); err != nil {
+		if err := yaml.Unmarshal(q(authorizationURLBytes), &authorizationURLVal); err != nil {
 			return err
 		}
 		v.authorizationURL = authorizationURLVal
@@ -2486,7 +2497,7 @@ func (v *OAuthFlow) UnmarshalYAML(b []byte) error {
 
 	if tokenURLBytes, ok := proxy["tokenUrl"]; ok {
 		var tokenURLVal string
-		if err := yaml.Unmarshal(tokenURLBytes, &tokenURLVal); err != nil {
+		if err := yaml.Unmarshal(q(tokenURLBytes), &tokenURLVal); err != nil {
 			return err
 		}
 		v.tokenURL = tokenURLVal
@@ -2501,7 +2512,7 @@ func (v *OAuthFlow) UnmarshalYAML(b []byte) error {
 
 	if refreshURLBytes, ok := proxy["refreshUrl"]; ok {
 		var refreshURLVal string
-		if err := yaml.Unmarshal(refreshURLBytes, &refreshURLVal); err != nil {
+		if err := yaml.Unmarshal(q(refreshURLBytes), &refreshURLVal); err != nil {
 			return err
 		}
 		v.refreshURL = refreshURLVal
