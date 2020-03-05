@@ -958,7 +958,7 @@ Sed tempus felis lobortis leo pulvinar rutrum. Nam mattis velit nisl, eu condime
 	want.setRoot(&want)
 
 	if !reflect.DeepEqual(got, want) {
-		t.Errorf("unexpected:\n  got: %#v\n  want: %#v", got, want)
+		t.Errorf("unexpected:\n  got:  %#v\n  want: %#v", got, want)
 		return
 	}
 }
