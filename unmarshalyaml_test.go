@@ -411,7 +411,7 @@ func TestInfoUnmarshalYAMLError(t *testing.T) {
 title: foobar
 termsOfService: hoge`,
 			// termsOfService expects URI
-			want: errors.New("parse hoge: invalid URI for request"),
+			want: errors.New(`parse "hoge": invalid URI for request`),
 		},
 		{
 			yml: `ersion: 1.0.0
@@ -519,7 +519,7 @@ func TestContactUnmarshalYAMLError(t *testing.T) {
 		},
 		{
 			yml:  `url: foobar`,
-			want: errors.New("parse foobar: invalid URI for request"),
+			want: errors.New(`parse "foobar": invalid URI for request`),
 		},
 		{
 			yml:  `foo: bar`,
@@ -609,7 +609,7 @@ func TestLicenseUnmarshalYAMLError(t *testing.T) {
 		{
 			yml: `name: foobar
 url: hoge`,
-			want: errors.New("parse hoge: invalid URI for request"),
+			want: errors.New(`parse "hoge": invalid URI for request`),
 		},
 		{
 			yml: `name: licensename
@@ -811,7 +811,7 @@ func TestServerUnmarshalYAMLError(t *testing.T) {
 		{
 			yml: `description: foobar
 url: https%20://example.com`,
-			want: errors.New("parse https%20://example.com: first path segment in URL cannot contain colon"),
+			want: errors.New(`parse "https%20://example.com": first path segment in URL cannot contain colon`),
 		},
 		{
 			yml: `description: foobar
@@ -2129,7 +2129,7 @@ func TestExternalDocumentationUnmarshalYAMLError(t *testing.T) {
 		},
 		{
 			yml:  `url: foobar`,
-			want: errors.New("parse foobar: invalid URI for request"),
+			want: errors.New(`parse "foobar": invalid URI for request`),
 		},
 		{
 			yml: `url: https://example.com
@@ -5650,7 +5650,7 @@ func TestSecuritySchemeUnmarshalYAMLError(t *testing.T) {
 		},
 		{
 			yml:  `openIdConnectUrl: foo`,
-			want: errors.New("parse foo: invalid URI for request"),
+			want: errors.New(`parse "foo": invalid URI for request`),
 		},
 
 		{
@@ -5880,17 +5880,17 @@ func TestOAuthFlowUnmarshalYAMLError(t *testing.T) {
 		{
 			yml: `authorizationUrl: foobar`,
 			// authorizationUrl expects URI
-			want: errors.New("parse foobar: invalid URI for request"),
+			want: errors.New(`parse "foobar": invalid URI for request`),
 		},
 		{
 			yml: `tokenUrl: foobar`,
 			// tokenUrl expects URI
-			want: errors.New("parse foobar: invalid URI for request"),
+			want: errors.New(`parse "foobar": invalid URI for request`),
 		},
 		{
 			yml: `refreshUrl: foobar`,
 			// refreshUrl expects URI
-			want: errors.New("parse foobar: invalid URI for request"),
+			want: errors.New(`parse "foobar": invalid URI for request`),
 		},
 		{
 			yml: `scopes: foobar`,
