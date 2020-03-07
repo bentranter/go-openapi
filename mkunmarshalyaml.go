@@ -145,7 +145,11 @@ func main() {
 
 				typName := strings.TrimPrefix(ast2type(field.Type), "*")
 				g.Printf("\nvar %sVal %s", fn, typName)
-				g.Printf("\nif err := yaml.Unmarshal(%sBytes, &%[1]sVal); err != nil {", fn)
+				if typName == "string" {
+					g.Printf("\nif err := yaml.Unmarshal(q(%sBytes), &%[1]sVal); err != nil {", fn)
+				} else {
+					g.Printf("\nif err := yaml.Unmarshal(%sBytes, &%[1]sVal); err != nil {", fn)
+				}
 				g.Printf("\nreturn err")
 				g.Printf("\n}")
 				g.Printf("\nv.%s = ", fn)
