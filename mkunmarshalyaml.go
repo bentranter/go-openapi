@@ -144,20 +144,15 @@ func main() {
 				}
 
 				typName := strings.TrimPrefix(ast2type(field.Type), "*")
-				if typName == "string" {
-					g.Import("", "strings")
-					g.Printf("\nv.%s = strings.TrimSuffix(string(%[1]sBytes), \"\\n\")", fn)
-				} else {
-					g.Printf("\nvar %sVal %s", fn, typName)
-					g.Printf("\nif err := yaml.Unmarshal(%sBytes, &%[1]sVal); err != nil {", fn)
-					g.Printf("\nreturn err")
-					g.Printf("\n}")
-					g.Printf("\nv.%s = ", fn)
-					if _, ok := field.Type.(*ast.StarExpr); ok {
-						g.Printf("&")
-					}
-					g.Printf("%sVal", fn)
+				g.Printf("\nvar %sVal %s", fn, typName)
+				g.Printf("\nif err := yaml.Unmarshal(%sBytes, &%[1]sVal); err != nil {", fn)
+				g.Printf("\nreturn err")
+				g.Printf("\n}")
+				g.Printf("\nv.%s = ", fn)
+				if _, ok := field.Type.(*ast.StarExpr); ok {
+					g.Printf("&")
 				}
+				g.Printf("%sVal", fn)
 				g.Printf("\ndelete(proxy, `%s`)", yn)
 				if !required {
 					g.Printf("\n}")

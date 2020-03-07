@@ -32,7 +32,11 @@ func (v *OpenAPI) UnmarshalYAML(b []byte) error {
 	if !ok {
 		return ErrRequired("openapi")
 	}
-	v.openapi = strings.TrimSuffix(string(openapiBytes), "\n")
+	var openapiVal string
+	if err := yaml.Unmarshal(openapiBytes, &openapiVal); err != nil {
+		return err
+	}
+	v.openapi = openapiVal
 	delete(proxy, `openapi`)
 
 	if !isValidSemVer(v.openapi) {
@@ -139,16 +143,28 @@ func (v *Info) UnmarshalYAML(b []byte) error {
 	if !ok {
 		return ErrRequired("title")
 	}
-	v.title = strings.TrimSuffix(string(titleBytes), "\n")
+	var titleVal string
+	if err := yaml.Unmarshal(titleBytes, &titleVal); err != nil {
+		return err
+	}
+	v.title = titleVal
 	delete(proxy, `title`)
 
 	if descriptionBytes, ok := proxy["description"]; ok {
-		v.description = strings.TrimSuffix(string(descriptionBytes), "\n")
+		var descriptionVal string
+		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+			return err
+		}
+		v.description = descriptionVal
 		delete(proxy, `description`)
 	}
 
 	if termsOfServiceBytes, ok := proxy["termsOfService"]; ok {
-		v.termsOfService = strings.TrimSuffix(string(termsOfServiceBytes), "\n")
+		var termsOfServiceVal string
+		if err := yaml.Unmarshal(termsOfServiceBytes, &termsOfServiceVal); err != nil {
+			return err
+		}
+		v.termsOfService = termsOfServiceVal
 		delete(proxy, `termsOfService`)
 	}
 
@@ -180,7 +196,11 @@ func (v *Info) UnmarshalYAML(b []byte) error {
 	if !ok {
 		return ErrRequired("version")
 	}
-	v.version = strings.TrimSuffix(string(versionBytes), "\n")
+	var versionVal string
+	if err := yaml.Unmarshal(versionBytes, &versionVal); err != nil {
+		return err
+	}
+	v.version = versionVal
 	delete(proxy, `version`)
 	extension := map[string]interface{}{}
 	for key, val := range proxy {
@@ -212,12 +232,20 @@ func (v *Contact) UnmarshalYAML(b []byte) error {
 	}
 
 	if nameBytes, ok := proxy["name"]; ok {
-		v.name = strings.TrimSuffix(string(nameBytes), "\n")
+		var nameVal string
+		if err := yaml.Unmarshal(nameBytes, &nameVal); err != nil {
+			return err
+		}
+		v.name = nameVal
 		delete(proxy, `name`)
 	}
 
 	if urlBytes, ok := proxy["url"]; ok {
-		v.url = strings.TrimSuffix(string(urlBytes), "\n")
+		var urlVal string
+		if err := yaml.Unmarshal(urlBytes, &urlVal); err != nil {
+			return err
+		}
+		v.url = urlVal
 		delete(proxy, `url`)
 	}
 
@@ -228,7 +256,11 @@ func (v *Contact) UnmarshalYAML(b []byte) error {
 	}
 
 	if emailBytes, ok := proxy["email"]; ok {
-		v.email = strings.TrimSuffix(string(emailBytes), "\n")
+		var emailVal string
+		if err := yaml.Unmarshal(emailBytes, &emailVal); err != nil {
+			return err
+		}
+		v.email = emailVal
 		delete(proxy, `email`)
 	}
 
@@ -271,11 +303,19 @@ func (v *License) UnmarshalYAML(b []byte) error {
 	if !ok {
 		return ErrRequired("name")
 	}
-	v.name = strings.TrimSuffix(string(nameBytes), "\n")
+	var nameVal string
+	if err := yaml.Unmarshal(nameBytes, &nameVal); err != nil {
+		return err
+	}
+	v.name = nameVal
 	delete(proxy, `name`)
 
 	if urlBytes, ok := proxy["url"]; ok {
-		v.url = strings.TrimSuffix(string(urlBytes), "\n")
+		var urlVal string
+		if err := yaml.Unmarshal(urlBytes, &urlVal); err != nil {
+			return err
+		}
+		v.url = urlVal
 		delete(proxy, `url`)
 	}
 
@@ -317,7 +357,11 @@ func (v *Server) UnmarshalYAML(b []byte) error {
 	if !ok {
 		return ErrRequired("url")
 	}
-	v.url = strings.TrimSuffix(string(urlBytes), "\n")
+	var urlVal string
+	if err := yaml.Unmarshal(urlBytes, &urlVal); err != nil {
+		return err
+	}
+	v.url = urlVal
 	delete(proxy, `url`)
 
 	if err := validateURLTemplate(v.url); err != nil {
@@ -325,7 +369,11 @@ func (v *Server) UnmarshalYAML(b []byte) error {
 	}
 
 	if descriptionBytes, ok := proxy["description"]; ok {
-		v.description = strings.TrimSuffix(string(descriptionBytes), "\n")
+		var descriptionVal string
+		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+			return err
+		}
+		v.description = descriptionVal
 		delete(proxy, `description`)
 	}
 
@@ -379,11 +427,19 @@ func (v *ServerVariable) UnmarshalYAML(b []byte) error {
 	if !ok {
 		return ErrRequired("default")
 	}
-	v.default_ = strings.TrimSuffix(string(default_Bytes), "\n")
+	var default_Val string
+	if err := yaml.Unmarshal(default_Bytes, &default_Val); err != nil {
+		return err
+	}
+	v.default_ = default_Val
 	delete(proxy, `default`)
 
 	if descriptionBytes, ok := proxy["description"]; ok {
-		v.description = strings.TrimSuffix(string(descriptionBytes), "\n")
+		var descriptionVal string
+		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+			return err
+		}
+		v.description = descriptionVal
 		delete(proxy, `description`)
 	}
 	extension := map[string]interface{}{}
@@ -568,12 +624,20 @@ func (v *PathItem) UnmarshalYAML(b []byte) error {
 	}
 
 	if summaryBytes, ok := proxy["summary"]; ok {
-		v.summary = strings.TrimSuffix(string(summaryBytes), "\n")
+		var summaryVal string
+		if err := yaml.Unmarshal(summaryBytes, &summaryVal); err != nil {
+			return err
+		}
+		v.summary = summaryVal
 		delete(proxy, `summary`)
 	}
 
 	if descriptionBytes, ok := proxy["description"]; ok {
-		v.description = strings.TrimSuffix(string(descriptionBytes), "\n")
+		var descriptionVal string
+		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+			return err
+		}
+		v.description = descriptionVal
 		delete(proxy, `description`)
 	}
 
@@ -705,12 +769,20 @@ func (v *Operation) UnmarshalYAML(b []byte) error {
 	}
 
 	if summaryBytes, ok := proxy["summary"]; ok {
-		v.summary = strings.TrimSuffix(string(summaryBytes), "\n")
+		var summaryVal string
+		if err := yaml.Unmarshal(summaryBytes, &summaryVal); err != nil {
+			return err
+		}
+		v.summary = summaryVal
 		delete(proxy, `summary`)
 	}
 
 	if descriptionBytes, ok := proxy["description"]; ok {
-		v.description = strings.TrimSuffix(string(descriptionBytes), "\n")
+		var descriptionVal string
+		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+			return err
+		}
+		v.description = descriptionVal
 		delete(proxy, `description`)
 	}
 
@@ -724,7 +796,11 @@ func (v *Operation) UnmarshalYAML(b []byte) error {
 	}
 
 	if operationIDBytes, ok := proxy["operationId"]; ok {
-		v.operationID = strings.TrimSuffix(string(operationIDBytes), "\n")
+		var operationIDVal string
+		if err := yaml.Unmarshal(operationIDBytes, &operationIDVal); err != nil {
+			return err
+		}
+		v.operationID = operationIDVal
 		delete(proxy, `operationId`)
 	}
 
@@ -822,7 +898,11 @@ func (v *ExternalDocumentation) UnmarshalYAML(b []byte) error {
 	}
 
 	if descriptionBytes, ok := proxy["description"]; ok {
-		v.description = strings.TrimSuffix(string(descriptionBytes), "\n")
+		var descriptionVal string
+		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+			return err
+		}
+		v.description = descriptionVal
 		delete(proxy, `description`)
 	}
 
@@ -830,7 +910,11 @@ func (v *ExternalDocumentation) UnmarshalYAML(b []byte) error {
 	if !ok {
 		return ErrRequired("url")
 	}
-	v.url = strings.TrimSuffix(string(urlBytes), "\n")
+	var urlVal string
+	if err := yaml.Unmarshal(urlBytes, &urlVal); err != nil {
+		return err
+	}
+	v.url = urlVal
 	delete(proxy, `url`)
 
 	if _, err := url.ParseRequestURI(v.url); err != nil {
@@ -878,14 +962,22 @@ func (v *Parameter) UnmarshalYAML(b []byte) error {
 	if !ok {
 		return ErrRequired("name")
 	}
-	v.name = strings.TrimSuffix(string(nameBytes), "\n")
+	var nameVal string
+	if err := yaml.Unmarshal(nameBytes, &nameVal); err != nil {
+		return err
+	}
+	v.name = nameVal
 	delete(proxy, `name`)
 
 	inBytes, ok := proxy["in"]
 	if !ok {
 		return ErrRequired("in")
 	}
-	v.in = strings.TrimSuffix(string(inBytes), "\n")
+	var inVal string
+	if err := yaml.Unmarshal(inBytes, &inVal); err != nil {
+		return err
+	}
+	v.in = inVal
 	delete(proxy, `in`)
 
 	if !isOneOf(v.in, []string{"query", "header", "path", "cookie"}) {
@@ -893,7 +985,11 @@ func (v *Parameter) UnmarshalYAML(b []byte) error {
 	}
 
 	if descriptionBytes, ok := proxy["description"]; ok {
-		v.description = strings.TrimSuffix(string(descriptionBytes), "\n")
+		var descriptionVal string
+		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+			return err
+		}
+		v.description = descriptionVal
 		delete(proxy, `description`)
 	}
 
@@ -925,7 +1021,11 @@ func (v *Parameter) UnmarshalYAML(b []byte) error {
 	}
 
 	if styleBytes, ok := proxy["style"]; ok {
-		v.style = strings.TrimSuffix(string(styleBytes), "\n")
+		var styleVal string
+		if err := yaml.Unmarshal(styleBytes, &styleVal); err != nil {
+			return err
+		}
+		v.style = styleVal
 		delete(proxy, `style`)
 	}
 
@@ -1021,7 +1121,11 @@ func (v *RequestBody) UnmarshalYAML(b []byte) error {
 	}
 
 	if descriptionBytes, ok := proxy["description"]; ok {
-		v.description = strings.TrimSuffix(string(descriptionBytes), "\n")
+		var descriptionVal string
+		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+			return err
+		}
+		v.description = descriptionVal
 		delete(proxy, `description`)
 	}
 
@@ -1138,7 +1242,11 @@ func (v *Encoding) UnmarshalYAML(b []byte) error {
 	}
 
 	if contentTypeBytes, ok := proxy["contentType"]; ok {
-		v.contentType = strings.TrimSuffix(string(contentTypeBytes), "\n")
+		var contentTypeVal string
+		if err := yaml.Unmarshal(contentTypeBytes, &contentTypeVal); err != nil {
+			return err
+		}
+		v.contentType = contentTypeVal
 		delete(proxy, `contentType`)
 	}
 
@@ -1152,7 +1260,11 @@ func (v *Encoding) UnmarshalYAML(b []byte) error {
 	}
 
 	if styleBytes, ok := proxy["style"]; ok {
-		v.style = strings.TrimSuffix(string(styleBytes), "\n")
+		var styleVal string
+		if err := yaml.Unmarshal(styleBytes, &styleVal); err != nil {
+			return err
+		}
+		v.style = styleVal
 		delete(proxy, `style`)
 	}
 
@@ -1259,7 +1371,11 @@ func (v *Response) UnmarshalYAML(b []byte) error {
 	if !ok {
 		return ErrRequired("description")
 	}
-	v.description = strings.TrimSuffix(string(descriptionBytes), "\n")
+	var descriptionVal string
+	if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+		return err
+	}
+	v.description = descriptionVal
 	delete(proxy, `description`)
 
 	if headersBytes, ok := proxy["headers"]; ok {
@@ -1379,12 +1495,20 @@ func (v *Example) UnmarshalYAML(b []byte) error {
 	}
 
 	if summaryBytes, ok := proxy["summary"]; ok {
-		v.summary = strings.TrimSuffix(string(summaryBytes), "\n")
+		var summaryVal string
+		if err := yaml.Unmarshal(summaryBytes, &summaryVal); err != nil {
+			return err
+		}
+		v.summary = summaryVal
 		delete(proxy, `summary`)
 	}
 
 	if descriptionBytes, ok := proxy["description"]; ok {
-		v.description = strings.TrimSuffix(string(descriptionBytes), "\n")
+		var descriptionVal string
+		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+			return err
+		}
+		v.description = descriptionVal
 		delete(proxy, `description`)
 	}
 
@@ -1398,7 +1522,11 @@ func (v *Example) UnmarshalYAML(b []byte) error {
 	}
 
 	if externalValueBytes, ok := proxy["externalValue"]; ok {
-		v.externalValue = strings.TrimSuffix(string(externalValueBytes), "\n")
+		var externalValueVal string
+		if err := yaml.Unmarshal(externalValueBytes, &externalValueVal); err != nil {
+			return err
+		}
+		v.externalValue = externalValueVal
 		delete(proxy, `externalValue`)
 	}
 	extension := map[string]interface{}{}
@@ -1440,12 +1568,20 @@ func (v *Link) UnmarshalYAML(b []byte) error {
 	}
 
 	if operationRefBytes, ok := proxy["operationRef"]; ok {
-		v.operationRef = strings.TrimSuffix(string(operationRefBytes), "\n")
+		var operationRefVal string
+		if err := yaml.Unmarshal(operationRefBytes, &operationRefVal); err != nil {
+			return err
+		}
+		v.operationRef = operationRefVal
 		delete(proxy, `operationRef`)
 	}
 
 	if operationIDBytes, ok := proxy["operationId"]; ok {
-		v.operationID = strings.TrimSuffix(string(operationIDBytes), "\n")
+		var operationIDVal string
+		if err := yaml.Unmarshal(operationIDBytes, &operationIDVal); err != nil {
+			return err
+		}
+		v.operationID = operationIDVal
 		delete(proxy, `operationId`)
 	}
 
@@ -1468,7 +1604,11 @@ func (v *Link) UnmarshalYAML(b []byte) error {
 	}
 
 	if descriptionBytes, ok := proxy["description"]; ok {
-		v.description = strings.TrimSuffix(string(descriptionBytes), "\n")
+		var descriptionVal string
+		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+			return err
+		}
+		v.description = descriptionVal
 		delete(proxy, `description`)
 	}
 
@@ -1519,7 +1659,11 @@ func (v *Header) UnmarshalYAML(b []byte) error {
 	}
 
 	if descriptionBytes, ok := proxy["description"]; ok {
-		v.description = strings.TrimSuffix(string(descriptionBytes), "\n")
+		var descriptionVal string
+		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+			return err
+		}
+		v.description = descriptionVal
 		delete(proxy, `description`)
 	}
 
@@ -1551,7 +1695,11 @@ func (v *Header) UnmarshalYAML(b []byte) error {
 	}
 
 	if styleBytes, ok := proxy["style"]; ok {
-		v.style = strings.TrimSuffix(string(styleBytes), "\n")
+		var styleVal string
+		if err := yaml.Unmarshal(styleBytes, &styleVal); err != nil {
+			return err
+		}
+		v.style = styleVal
 		delete(proxy, `style`)
 	}
 
@@ -1641,11 +1789,19 @@ func (v *Tag) UnmarshalYAML(b []byte) error {
 	if !ok {
 		return ErrRequired("name")
 	}
-	v.name = strings.TrimSuffix(string(nameBytes), "\n")
+	var nameVal string
+	if err := yaml.Unmarshal(nameBytes, &nameVal); err != nil {
+		return err
+	}
+	v.name = nameVal
 	delete(proxy, `name`)
 
 	if descriptionBytes, ok := proxy["description"]; ok {
-		v.description = strings.TrimSuffix(string(descriptionBytes), "\n")
+		var descriptionVal string
+		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+			return err
+		}
+		v.description = descriptionVal
 		delete(proxy, `description`)
 	}
 
@@ -1696,7 +1852,11 @@ func (v *Schema) UnmarshalYAML(b []byte) error {
 	}
 
 	if titleBytes, ok := proxy["title"]; ok {
-		v.title = strings.TrimSuffix(string(titleBytes), "\n")
+		var titleVal string
+		if err := yaml.Unmarshal(titleBytes, &titleVal); err != nil {
+			return err
+		}
+		v.title = titleVal
 		delete(proxy, `title`)
 	}
 
@@ -1764,7 +1924,11 @@ func (v *Schema) UnmarshalYAML(b []byte) error {
 	}
 
 	if patternBytes, ok := proxy["pattern"]; ok {
-		v.pattern = strings.TrimSuffix(string(patternBytes), "\n")
+		var patternVal string
+		if err := yaml.Unmarshal(patternBytes, &patternVal); err != nil {
+			return err
+		}
+		v.pattern = patternVal
 		delete(proxy, `pattern`)
 	}
 
@@ -1823,7 +1987,11 @@ func (v *Schema) UnmarshalYAML(b []byte) error {
 	}
 
 	if type_Bytes, ok := proxy["type"]; ok {
-		v.type_ = strings.TrimSuffix(string(type_Bytes), "\n")
+		var type_Val string
+		if err := yaml.Unmarshal(type_Bytes, &type_Val); err != nil {
+			return err
+		}
+		v.type_ = type_Val
 		delete(proxy, `type`)
 	}
 
@@ -1891,17 +2059,29 @@ func (v *Schema) UnmarshalYAML(b []byte) error {
 	}
 
 	if descriptionBytes, ok := proxy["description"]; ok {
-		v.description = strings.TrimSuffix(string(descriptionBytes), "\n")
+		var descriptionVal string
+		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+			return err
+		}
+		v.description = descriptionVal
 		delete(proxy, `description`)
 	}
 
 	if formatBytes, ok := proxy["format"]; ok {
-		v.format = strings.TrimSuffix(string(formatBytes), "\n")
+		var formatVal string
+		if err := yaml.Unmarshal(formatBytes, &formatVal); err != nil {
+			return err
+		}
+		v.format = formatVal
 		delete(proxy, `format`)
 	}
 
 	if default_Bytes, ok := proxy["default"]; ok {
-		v.default_ = strings.TrimSuffix(string(default_Bytes), "\n")
+		var default_Val string
+		if err := yaml.Unmarshal(default_Bytes, &default_Val); err != nil {
+			return err
+		}
+		v.default_ = default_Val
 		delete(proxy, `default`)
 	}
 
@@ -2006,7 +2186,11 @@ func (v *Discriminator) UnmarshalYAML(b []byte) error {
 	}
 
 	if propertyNameBytes, ok := proxy["propertyName"]; ok {
-		v.propertyName = strings.TrimSuffix(string(propertyNameBytes), "\n")
+		var propertyNameVal string
+		if err := yaml.Unmarshal(propertyNameBytes, &propertyNameVal); err != nil {
+			return err
+		}
+		v.propertyName = propertyNameVal
 		delete(proxy, `propertyName`)
 	}
 
@@ -2033,17 +2217,29 @@ func (v *XML) UnmarshalYAML(b []byte) error {
 	}
 
 	if nameBytes, ok := proxy["name"]; ok {
-		v.name = strings.TrimSuffix(string(nameBytes), "\n")
+		var nameVal string
+		if err := yaml.Unmarshal(nameBytes, &nameVal); err != nil {
+			return err
+		}
+		v.name = nameVal
 		delete(proxy, `name`)
 	}
 
 	if namespaceBytes, ok := proxy["namespace"]; ok {
-		v.namespace = strings.TrimSuffix(string(namespaceBytes), "\n")
+		var namespaceVal string
+		if err := yaml.Unmarshal(namespaceBytes, &namespaceVal); err != nil {
+			return err
+		}
+		v.namespace = namespaceVal
 		delete(proxy, `namespace`)
 	}
 
 	if prefixBytes, ok := proxy["prefix"]; ok {
-		v.prefix = strings.TrimSuffix(string(prefixBytes), "\n")
+		var prefixVal string
+		if err := yaml.Unmarshal(prefixBytes, &prefixVal); err != nil {
+			return err
+		}
+		v.prefix = prefixVal
 		delete(proxy, `prefix`)
 	}
 
@@ -2103,7 +2299,11 @@ func (v *SecurityScheme) UnmarshalYAML(b []byte) error {
 	}
 
 	if type_Bytes, ok := proxy["type"]; ok {
-		v.type_ = strings.TrimSuffix(string(type_Bytes), "\n")
+		var type_Val string
+		if err := yaml.Unmarshal(type_Bytes, &type_Val); err != nil {
+			return err
+		}
+		v.type_ = type_Val
 		delete(proxy, `type`)
 	}
 
@@ -2114,17 +2314,29 @@ func (v *SecurityScheme) UnmarshalYAML(b []byte) error {
 	}
 
 	if descriptionBytes, ok := proxy["description"]; ok {
-		v.description = strings.TrimSuffix(string(descriptionBytes), "\n")
+		var descriptionVal string
+		if err := yaml.Unmarshal(descriptionBytes, &descriptionVal); err != nil {
+			return err
+		}
+		v.description = descriptionVal
 		delete(proxy, `description`)
 	}
 
 	if nameBytes, ok := proxy["name"]; ok {
-		v.name = strings.TrimSuffix(string(nameBytes), "\n")
+		var nameVal string
+		if err := yaml.Unmarshal(nameBytes, &nameVal); err != nil {
+			return err
+		}
+		v.name = nameVal
 		delete(proxy, `name`)
 	}
 
 	if inBytes, ok := proxy["in"]; ok {
-		v.in = strings.TrimSuffix(string(inBytes), "\n")
+		var inVal string
+		if err := yaml.Unmarshal(inBytes, &inVal); err != nil {
+			return err
+		}
+		v.in = inVal
 		delete(proxy, `in`)
 	}
 
@@ -2135,12 +2347,20 @@ func (v *SecurityScheme) UnmarshalYAML(b []byte) error {
 	}
 
 	if schemeBytes, ok := proxy["scheme"]; ok {
-		v.scheme = strings.TrimSuffix(string(schemeBytes), "\n")
+		var schemeVal string
+		if err := yaml.Unmarshal(schemeBytes, &schemeVal); err != nil {
+			return err
+		}
+		v.scheme = schemeVal
 		delete(proxy, `scheme`)
 	}
 
 	if bearerFormatBytes, ok := proxy["bearerFormat"]; ok {
-		v.bearerFormat = strings.TrimSuffix(string(bearerFormatBytes), "\n")
+		var bearerFormatVal string
+		if err := yaml.Unmarshal(bearerFormatBytes, &bearerFormatVal); err != nil {
+			return err
+		}
+		v.bearerFormat = bearerFormatVal
 		delete(proxy, `bearerFormat`)
 	}
 
@@ -2154,7 +2374,11 @@ func (v *SecurityScheme) UnmarshalYAML(b []byte) error {
 	}
 
 	if openIDConnectURLBytes, ok := proxy["openIdConnectUrl"]; ok {
-		v.openIDConnectURL = strings.TrimSuffix(string(openIDConnectURLBytes), "\n")
+		var openIDConnectURLVal string
+		if err := yaml.Unmarshal(openIDConnectURLBytes, &openIDConnectURLVal); err != nil {
+			return err
+		}
+		v.openIDConnectURL = openIDConnectURLVal
 		delete(proxy, `openIdConnectUrl`)
 	}
 
@@ -2257,7 +2481,11 @@ func (v *OAuthFlow) UnmarshalYAML(b []byte) error {
 	}
 
 	if authorizationURLBytes, ok := proxy["authorizationUrl"]; ok {
-		v.authorizationURL = strings.TrimSuffix(string(authorizationURLBytes), "\n")
+		var authorizationURLVal string
+		if err := yaml.Unmarshal(authorizationURLBytes, &authorizationURLVal); err != nil {
+			return err
+		}
+		v.authorizationURL = authorizationURLVal
 		delete(proxy, `authorizationUrl`)
 	}
 
@@ -2268,7 +2496,11 @@ func (v *OAuthFlow) UnmarshalYAML(b []byte) error {
 	}
 
 	if tokenURLBytes, ok := proxy["tokenUrl"]; ok {
-		v.tokenURL = strings.TrimSuffix(string(tokenURLBytes), "\n")
+		var tokenURLVal string
+		if err := yaml.Unmarshal(tokenURLBytes, &tokenURLVal); err != nil {
+			return err
+		}
+		v.tokenURL = tokenURLVal
 		delete(proxy, `tokenUrl`)
 	}
 
@@ -2279,7 +2511,11 @@ func (v *OAuthFlow) UnmarshalYAML(b []byte) error {
 	}
 
 	if refreshURLBytes, ok := proxy["refreshUrl"]; ok {
-		v.refreshURL = strings.TrimSuffix(string(refreshURLBytes), "\n")
+		var refreshURLVal string
+		if err := yaml.Unmarshal(refreshURLBytes, &refreshURLVal); err != nil {
+			return err
+		}
+		v.refreshURL = refreshURLVal
 		delete(proxy, `refreshUrl`)
 	}
 
