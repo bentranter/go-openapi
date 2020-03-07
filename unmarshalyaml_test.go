@@ -4077,12 +4077,10 @@ func TestLinkExampleUnmarshalYAML(t *testing.T) {
 			t.Errorf("unexpected links.address.operationId: %s", link.operationID)
 			return
 		}
-		/* according to yaml's spec, '#' without leading space must be treated as string but not
 		if link.parameters["userUuid"] != "$response.body#/uuid" {
 			t.Errorf("unexpected links.address.parameters.userUuid: %s", link.parameters["userUuid"])
 			return
 		}
-		*/
 	})
 	t.Run("relative operationRef", func(t *testing.T) {
 		yml := `links:
@@ -4105,12 +4103,10 @@ func TestLinkExampleUnmarshalYAML(t *testing.T) {
 			t.Errorf("unexpected links.UserRepositories.operationRef: %s", link.operationRef)
 			return
 		}
-		/* according to yaml's spec, '#' without leading space must be treated as string but not
-		if link.parameters["username] != "$response.body#/username" {
+		if link.parameters["username"] != "$response.body#/username" {
 			t.Errorf("unexpected links.address.parameters.userUuid: %s", link.parameters["username"])
 			return
 		}
-		*/
 	})
 	t.Run("absolute operationRef", func(t *testing.T) {
 		yml := `links:
@@ -4133,12 +4129,10 @@ func TestLinkExampleUnmarshalYAML(t *testing.T) {
 			t.Errorf("unexpected links.UserRepositories.operationRef: %s", link.operationRef)
 			return
 		}
-		/* according to yaml's spec, '#' without leading space must be treated as string but not
-		if link.parameters["username] != "$response.body#/username" {
+		if link.parameters["username"] != "$response.body#/username" {
 			t.Errorf("unexpected links.address.parameters.userUuid: %s", link.parameters["username"])
 			return
 		}
-		*/
 	})
 }
 
