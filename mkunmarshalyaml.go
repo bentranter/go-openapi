@@ -23,13 +23,13 @@ func main() {
 
 	g.Printf("\nfunc q(b []byte) []byte {")
 	g.Import("", "bytes")
-	g.Printf("\nif !bytes.HasPrefix(b, []byte(\"#\")) {")
-	g.Printf("\nreturn b")
-	g.Printf("\n}")
+	g.Printf("\nif !bytes.HasPrefix(b, []byte(\"|\")) {")
 	g.Printf("\nif bytes.ContainsRune(b, '\\'') {")
 	g.Printf("\nreturn append([]byte{'\"'}, append(b, '\"')...)")
 	g.Printf("\n}")
 	g.Printf("\nreturn append([]byte{'\\''}, append(b, '\\'')...)")
+	g.Printf("\n}")
+	g.Printf("\nreturn b")
 	g.Printf("\n}")
 
 	for _, decl := range f.Decls {

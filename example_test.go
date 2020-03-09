@@ -221,9 +221,6 @@ func TestAPIWithExample(t *testing.T) {
 
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("unexpected:\n  got:  %#v\n  want: %#v", got, want)
-		t.Log(reflect.DeepEqual(got.paths.paths["/"].get.responses.responses["300"].content["application/json"].examples, want.paths.paths["/"].get.responses.responses["300"].content["application/json"].examples))
-		t.Logf("%s", got.paths.paths["/"].get.responses.responses["300"].content["application/json"].examples["foo"].value)
-		t.Logf("%s", want.paths.paths["/"].get.responses.responses["300"].content["application/json"].examples["foo"].value)
 		return
 	}
 }

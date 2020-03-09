@@ -13,13 +13,13 @@ import (
 )
 
 func q(b []byte) []byte {
-	if !bytes.HasPrefix(b, []byte("#")) {
-		return b
+	if !bytes.HasPrefix(b, []byte("|")) {
+		if bytes.ContainsRune(b, '\'') {
+			return append([]byte{'"'}, append(b, '"')...)
+		}
+		return append([]byte{'\''}, append(b, '\'')...)
 	}
-	if bytes.ContainsRune(b, '\'') {
-		return append([]byte{'"'}, append(b, '"')...)
-	}
-	return append([]byte{'\''}, append(b, '\'')...)
+	return b
 }
 
 func (v *OpenAPI) UnmarshalYAML(b []byte) error {
