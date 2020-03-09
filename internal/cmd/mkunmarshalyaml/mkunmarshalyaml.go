@@ -13,12 +13,12 @@ import (
 	"github.com/nasa9084/go-openapi/internal/generator"
 )
 
-func main() {
-	showSrc := flag.Bool("show-src", false, "")
+func init() {
 	flag.Parse()
+}
 
+func main() {
 	g := generator.New("mkunmarshalyaml.go")
-	g.ShowSource = *showSrc
 
 	f, err := parser.ParseFile(token.NewFileSet(), "interfaces.go", nil, parser.ParseComments)
 	if err != nil {

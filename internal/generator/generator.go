@@ -3,6 +3,7 @@ package generator
 import (
 	"bufio"
 	"bytes"
+	"flag"
 	"fmt"
 	"go/format"
 	"io/ioutil"
@@ -20,12 +21,18 @@ var pool = sync.Pool{
 	},
 }
 
+var showSrc bool
+
+func init() {
+	flag.BoolVar(&showSrc, "show-src", false, "")
+}
+
 type Generator struct {
 	name    string
 	imports imports
 	body    *bytes.Buffer
 
-	ShowSource bool
+	showSource bool
 }
 
 type import_ struct {
@@ -42,6 +49,8 @@ func New(name string) *Generator {
 	return &Generator{
 		name: name,
 		body: new(bytes.Buffer),
+
+		showSource: showSrc,
 	}
 }
 
@@ -80,7 +89,7 @@ func (g *Generator) Save(filepath string) error {
 		log.Printf("error on formatting source code: %v", err)
 		return err
 	}
-	if g.ShowSource {
+	if g.showSource {
 		printSource(src)
 	}
 	return WriteFile(filepath, src, 0644)
