@@ -1,5 +1,3 @@
-// +build ignore
-
 package main
 
 import (
@@ -13,6 +11,8 @@ import (
 	"log"
 	"strings"
 	"unicode"
+
+	"github.com/nasa9084/go-openapi/internal/astutil"
 )
 
 func main() {
@@ -47,7 +47,7 @@ func main() {
 
 			for _, field := range st.Fields.List {
 				fn := field.Names[0].Name
-				ft := ast2type(field.Type)
+				ft := astutil.TypeString(field.Type)
 
 				if typ.Name.Name == expose(fn) {
 					continue

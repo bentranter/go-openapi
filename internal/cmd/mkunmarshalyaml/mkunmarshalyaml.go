@@ -1,5 +1,3 @@
-// +build ignore
-
 package main
 
 import (
@@ -10,6 +8,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/nasa9084/go-openapi/internal/astutil"
 	"github.com/nasa9084/go-openapi/internal/generator"
 )
 
@@ -62,7 +61,7 @@ func main() {
 
 			var noUnknown bool
 			for _, field := range st.Fields.List {
-				if yamlName(field, parseTags(field)) == "$ref" {
+				if yamlName(field, astutil.ParseTags(field)) == "$ref" {
 					g.Printf("\nif referenceBytes, ok := proxy[\"$ref\"]; ok {")
 					g.Printf("\nvar referenceVal string")
 					g.Import("yaml", "github.com/goccy/go-yaml")
@@ -79,7 +78,7 @@ func main() {
 
 			for _, field := range st.Fields.List {
 				fn := field.Names[0].Name
-				tag := parseTags(field)
+				tag := astutil.ParseTags(field)
 				yn := yamlName(field, tag)
 				required := isRequired(tag)
 
@@ -93,7 +92,7 @@ func main() {
 						log.Fatalf("expected map for inline %s but %s", yn, field.Type)
 					}
 					formatTag := tag["format"]
-					g.Printf("\n%s := map[string]%s{}", fn, ast2type(ft.Value))
+					g.Printf("\n%s := map[string]%s{}", fn, astutil.TypeString(ft.Value))
 					g.Printf("\nfor key, val := range proxy {")
 					if len(formatTag) > 0 {
 						switch formatTag[0] {
@@ -116,7 +115,7 @@ func main() {
 					} else {
 						noUnknown = true
 					}
-					g.Printf("\nvar %sv %s", fn, strings.TrimPrefix(ast2type(ft.Value), "*"))
+					g.Printf("\nvar %sv %s", fn, strings.TrimPrefix(astutil.TypeString(ft.Value), "*"))
 					g.Printf("\nif err := yaml.Unmarshal(val, &%sv); err != nil {", fn)
 					g.Printf("\nreturn err")
 					g.Printf("\n}")
@@ -143,7 +142,7 @@ func main() {
 					g.Printf("if %sBytes, ok := proxy[\"%s\"]; ok {", fn, yn)
 				}
 
-				typName := strings.TrimPrefix(ast2type(field.Type), "*")
+				typName := strings.TrimPrefix(astutil.TypeString(field.Type), "*")
 				g.Printf("\nvar %sVal %s", fn, typName)
 				if typName == "string" {
 					g.Printf("\nif err := yaml.Unmarshal(q(%sBytes), &%[1]sVal); err != nil {", fn)
@@ -162,7 +161,7 @@ func main() {
 					g.Printf("\n}")
 				}
 
-				switch tag.get("format") {
+				switch tag.Get("format") {
 				case "semver":
 					g.Printf("\n\nif !isValidSemVer(v.%s) {", fn)
 					g.Import("", "errors")
@@ -253,7 +252,7 @@ func main() {
 	}
 }
 
-func isInline(t tags) bool {
+func isInline(t astutil.Tags) bool {
 	vs := t["yaml"]
 	if len(vs) < 2 {
 		return false
@@ -266,12 +265,12 @@ func isInline(t tags) bool {
 	return false
 }
 
-func isRequired(t tags) bool {
-	return t.get("required") != ""
+func isRequired(t astutil.Tags) bool {
+	return t.Get("required") != ""
 }
 
-func yamlName(field *ast.Field, t tags) string {
-	yn := t.get("yaml")
+func yamlName(field *ast.Field, t astutil.Tags) string {
+	yn := t.Get("yaml")
 	if yn != "" {
 		return yn
 	}

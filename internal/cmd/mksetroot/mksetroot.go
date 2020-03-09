@@ -1,5 +1,3 @@
-// +build ignore
-
 package main
 
 import (
@@ -28,6 +26,8 @@ func main() {
 			log.Printf("%v is not an openapi object. skip.", genDecl.Specs[0].(*ast.TypeSpec).Name.Name)
 			continue
 		}
+
+		log.Print(len(genDecl.Specs))
 
 		for _, spec := range genDecl.Specs {
 			typ, ok := spec.(*ast.TypeSpec)
