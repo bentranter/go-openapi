@@ -27,8 +27,6 @@ func main() {
 			continue
 		}
 
-		log.Print(len(genDecl.Specs))
-
 		for _, spec := range genDecl.Specs {
 			typ, ok := spec.(*ast.TypeSpec)
 			if !ok {
