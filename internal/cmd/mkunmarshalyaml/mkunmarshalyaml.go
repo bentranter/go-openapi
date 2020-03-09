@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"go/ast"
 	"go/parser"
 	"go/token"
@@ -13,7 +14,11 @@ import (
 )
 
 func main() {
+	showSrc := flag.Bool("show-src", false, "")
+	flag.Parse()
+
 	g := generator.New("mkunmarshalyaml.go")
+	g.ShowSource = *showSrc
 
 	f, err := parser.ParseFile(token.NewFileSet(), "interfaces.go", nil, parser.ParseComments)
 	if err != nil {

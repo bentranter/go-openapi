@@ -24,6 +24,8 @@ type Generator struct {
 	name    string
 	imports imports
 	body    *bytes.Buffer
+
+	ShowSource bool
 }
 
 type import_ struct {
@@ -78,7 +80,9 @@ func (g *Generator) Save(filepath string) error {
 		log.Printf("error on formatting source code: %v", err)
 		return err
 	}
-	printSource(src)
+	if g.ShowSource {
+		printSource(src)
+	}
 	return WriteFile(filepath, src, 0644)
 }
 
