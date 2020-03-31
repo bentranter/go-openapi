@@ -9,46 +9,46 @@ import (
 
 // Schema Object
 type Schema struct {
-	Title            string
-	MultipleOf       int `yaml:"multipleOf"`
-	Maximum          int
-	ExclusiveMaximum bool `yaml:"exclusiveMaximum"`
-	Minimum          int
-	ExclusiveMinimum bool `yaml:"exclusiveMinimum"`
-	MaxLength        int  `yaml:"maxLength"`
-	MinLength        int  `yaml:"minLength"`
-	Pattern          string
-	MaxItems         int `yaml:"maxItems"`
-	MinItems         int `yaml:"minItems"`
-	MaxProperties    int `yaml:"maxProperties"`
-	MinProperties    int `yaml:"minProperties"`
-	Required         []string
-	Enum             []string
+	Title            string   `json:"title,omitempty"`
+	MultipleOf       int      `yaml:"multipleOf" json:"multipleOf,omitempty"`
+	Maximum          int      `json:"maximum,omitempty"`
+	ExclusiveMaximum bool     `yaml:"exclusiveMaximum" json:"exclusiveMaximum,omitempty"`
+	Minimum          int      `json:"minimum,omitempty"`
+	ExclusiveMinimum bool     `yaml:"exclusiveMinimum" json:"exclusiveMinimum,omitempty"`
+	MaxLength        int      `yaml:"maxLength" json:"maxLength,omitempty"`
+	MinLength        int      `yaml:"minLength" json:"minLength,omitempty"`
+	Pattern          string   `json:"pattern,omitempty"`
+	MaxItems         int      `yaml:"maxItems" json:"maxItems,omitempty"`
+	MinItems         int      `yaml:"minItems" json:"minItems,omitempty"`
+	MaxProperties    int      `yaml:"maxProperties" json:"maxProperties,omitempty"`
+	MinProperties    int      `yaml:"minProperties" json:"minProperties,omitempty"`
+	Required         []string `json:"required,omitempty"`
+	Enum             []string `json:"enum,omitempty"`
 
-	Type                 string
-	AllOf                []*Schema `yaml:"allOf"`
-	OneOf                []*Schema `yaml:"oneOf"`
-	AnyOf                []*Schema `yaml:"anyOf"`
-	Not                  *Schema
-	Items                *Schema
-	Properties           map[string]*Schema
-	AdditionalProperties *Schema `yaml:"additionalProperties"`
-	Description          string
-	Format               string
-	Default              string
+	Type                 string             `json:"type,omitempty"`
+	AllOf                []*Schema          `yaml:"allOf" json:"allOf,omitempty"`
+	OneOf                []*Schema          `yaml:"oneOf" json:"oneOf,omitempty"`
+	AnyOf                []*Schema          `yaml:"anyOf" json:"anyOf,omitempty"`
+	Not                  *Schema            `json:"not,omitempty"`
+	Items                *Schema            `json:"items,omitempty"`
+	Properties           map[string]*Schema `json:"properties,omitempty"`
+	AdditionalProperties *Schema            `yaml:"additionalProperties" json:"additionalProperties,omitempty"`
+	Description          string             `json:"description,omitempty"`
+	Format               string             `json:"format,omitempty"`
+	Default              string             `json:"default,omitempty"`
 
-	Nullable      bool
-	Discriminator *Discriminator
-	ReadOnly      bool `yaml:"readOnly"`
-	WriteOnly     bool `yaml:"writeOnly"`
-	XML           *XML
-	ExternalDocs  *ExternalDocumentation `yaml:"externalDocs"`
-	Example       interface{}
-	Deprecated    bool
+	Nullable      bool                   `json:"nullable,omitempty"`
+	Discriminator *Discriminator         `json:"discriminator,omitempty"`
+	ReadOnly      bool                   `yaml:"readOnly" json:"readOnly,omitempty"`
+	WriteOnly     bool                   `yaml:"writeOnly" json:"writeOnly,omitempty"`
+	XML           *XML                   `json:"xml,omitempty"`
+	ExternalDocs  *ExternalDocumentation `yaml:"externalDocs" json:"externalDocs,omitempty"`
+	Example       interface{}            `json:"example,omitempty"`
+	Deprecated    bool                   `json:"deprecated,omitempty"`
 
-	Ref string `yaml:"$ref"`
+	Ref string `yaml:"$ref" json:"$ref,omitempty"`
 
-	Extension map[string]interface{} `yaml:",inline"`
+	Extension map[string]interface{} `yaml:",inline" json:"extension,omitempty"`
 }
 
 // Validate the values of Schema object.

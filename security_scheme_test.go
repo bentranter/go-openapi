@@ -3,7 +3,7 @@ package openapi_test
 import (
 	"testing"
 
-	openapi "github.com/nasa9084/go-openapi"
+	openapi "github.com/bentranter/go-openapi"
 )
 
 func TestSecurityScheme_Validate(t *testing.T) {

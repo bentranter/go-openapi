@@ -4,16 +4,16 @@ package openapi
 
 // SecurityScheme Object
 type SecurityScheme struct {
-	Type             SecuritySchemeType
-	Description      string
-	Name             string
-	In               InType
-	Scheme           string
-	BearerFormat     string `yaml:"bearerFormat"`
-	Flows            *OAuthFlows
-	OpenIDConnectURL string `yaml:"openIdConnectUrl"`
+	Type             SecuritySchemeType `json:"type,omitempty"`
+	Description      string             `json:"description,omitempty"`
+	Name             string             `json:"name,omitempty"`
+	In               InType             `json:"in,omitempty"`
+	Scheme           string             `json:"scheme,omitempty"`
+	BearerFormat     string             `yaml:"bearerFormat" json:"bearerFormat,omitempty"`
+	Flows            *OAuthFlows        `json:"flows,omitempty"`
+	OpenIDConnectURL string             `yaml:"openIdConnectUrl" json:"openIDConnectURL,omitempty"`
 
-	Ref string `yaml:"$ref"`
+	Ref string `yaml:"$ref" json:"$ref,omitempty"`
 }
 
 // SecuritySchemeType represents a securityScheme.type value.

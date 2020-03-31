@@ -4,9 +4,9 @@ package openapi
 
 // Contact Object
 type Contact struct {
-	Name  string
-	URL   string
-	Email string
+	Name  string `json:"name,omitempty"`
+	URL   string `json:"url,omitempty"`
+	Email string `json:"email,omitempty"`
 }
 
 // Validate the values of Contact object.

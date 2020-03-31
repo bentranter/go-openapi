@@ -4,15 +4,15 @@ package openapi
 
 // Components Object
 type Components struct {
-	Schemas         map[string]*Schema
-	Responses       map[string]*Response
-	Parameters      map[string]*Parameter
-	Examples        map[string]*Example
-	RequestBodies   map[string]*RequestBody `yaml:"requestBodies"`
-	Headers         map[string]*Header
-	SecuritySchemes map[string]*SecurityScheme `yaml:"securitySchemes"`
-	Links           map[string]*Link
-	Callbacks       map[string]*Callback
+	Schemas         map[string]*Schema         `json:"schemas,omitempty"`
+	Responses       map[string]*Response       `json:"responses,omitempty"`
+	Parameters      map[string]*Parameter      `json:"parameters,omitempty"`
+	Examples        map[string]*Example        `json:"examples,omitempty"`
+	RequestBodies   map[string]*RequestBody    `yaml:"requestBodies" json:"requestBodies,omitempty"`
+	Headers         map[string]*Header         `json:"headers,omitempty"`
+	SecuritySchemes map[string]*SecurityScheme `yaml:"securitySchemes" json:"securitySchemes,omitempty"`
+	Links           map[string]*Link           `json:"links,omitempty"`
+	Callbacks       map[string]*Callback       `json:"callbacks,omitempty"`
 }
 
 // Validate the values of Components object.

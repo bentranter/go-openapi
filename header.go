@@ -4,21 +4,21 @@ package openapi
 
 // Header Object
 type Header struct {
-	Description     string
-	Required        bool
-	Deprecated      string
-	AllowEmptyValue bool `yaml:"allowEmptyValue"`
+	Description     string `json:"description,omitempty"`
+	Required        bool   `json:"required,omitempty"`
+	Deprecated      string `json:"deprecated,omitempty"`
+	AllowEmptyValue bool   `yaml:"allowEmptyValue" json:"allowEmptyValue,omitempty"`
 
-	Style         string
-	Explode       bool
-	AllowReserved bool `yaml:"allowReserved"`
-	Schema        *Schema
-	Example       interface{}
-	Examples      map[string]*Example
+	Style         string              `json:"style,omitempty"`
+	Explode       bool                `json:"explode,omitempty"`
+	AllowReserved bool                `yaml:"allowReserved" json:"allowReserved,omitempty"`
+	Schema        *Schema             `json:"schema,omitempty"`
+	Example       interface{}         `json:"example,omitempty"`
+	Examples      map[string]*Example `json:"examples,omitempty"`
 
-	Content map[string]*MediaType
+	Content map[string]*MediaType `json:"content,omitempty"`
 
-	Ref string `yaml:"$ref"`
+	Ref string `yaml:"$ref" json:"$ref,omitempty"`
 }
 
 // Validate the values of Header object.

@@ -1,11 +1,15 @@
 OpenAPI Specification object model
 ===
 
-[![GoDoc](https://godoc.org/github.com/nasa9084/go-openapi?status.svg)](https://godoc.org/github.com/nasa9084/go-openapi)
-[![Build Status](https://travis-ci.org/nasa9084/go-openapi.svg?branch=master)](https://travis-ci.org/nasa9084/go-openapi)
-[![codecov](https://codecov.io/gh/nasa9084/go-openapi/branch/master/graph/badge.svg)](https://codecov.io/gh/nasa9084/go-openapi)
+[![GoDoc](https://godoc.org/github.com/bentranter/go-openapi?status.svg)](https://godoc.org/github.com/bentranter/go-openapi)
+[![Build Status](https://travis-ci.org/bentranter/go-openapi.svg?branch=master)](https://travis-ci.org/bentranter/go-openapi)
+[![codecov](https://codecov.io/gh/bentranter/go-openapi/branch/master/graph/badge.svg)](https://codecov.io/gh/bentranter/go-openapi)
 
 ---
+
+This is a fork of https://github.com/nasa9084/go-openapi. It was changed to add support for:
+  * JSON marshalling.
+  * Omitting empty fields (when encoding to JSON).
 
 **This package is still under development, so the API will be changed without any notification**
 
@@ -21,7 +25,7 @@ package main
 import (
     "fmt"
 
-    "github.com/nasa9084/go-openapi"
+    "github.com/bentranter/go-openapi"
 )
 
 func main() {

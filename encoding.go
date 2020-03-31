@@ -4,11 +4,11 @@ package openapi
 
 // Encoding Object
 type Encoding struct {
-	ContentType   string `yaml:"contentType"`
-	Headers       map[string]*Header
-	Style         string
-	Explode       bool
-	AllowReserved bool `yaml:"allowReserved"`
+	ContentType   string             `yaml:"contentType" json:"contentType,omitempty"`
+	Headers       map[string]*Header `json:"headers,omitempty"`
+	Style         string             `json:"style,omitempty"`
+	Explode       bool               `json:"explode,omitempty"`
+	AllowReserved bool               `yaml:"allowReserved" json:"allowReserved,omitempty"`
 }
 
 // Validate the values of Encoding object.

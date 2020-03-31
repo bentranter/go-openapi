@@ -8,8 +8,8 @@ import (
 
 // License Object
 type License struct {
-	Name string
-	URL  string
+	Name string `json:"name,omitempty"`
+	URL  string `json:"url,omitempty"`
 }
 
 // Validate the values of License object.

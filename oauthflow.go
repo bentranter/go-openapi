@@ -3,7 +3,7 @@ package openapi
 import (
 	"net/url"
 
-	"github.com/nasa9084/go-openapi/oauth"
+	"github.com/bentranter/go-openapi/oauth"
 )
 
 // codebeat:disable[TOO_MANY_IVARS]
@@ -11,10 +11,10 @@ import (
 // OAuthFlow Object
 type OAuthFlow struct {
 	flowType         string
-	AuthorizationURL string `yaml:"authorizationUrl"`
-	TokenURL         string `yaml:"tokenUrl"`
-	RefreshURL       string `yaml:"refreshUrl"`
-	Scopes           map[string]string
+	AuthorizationURL string            `yaml:"authorizationUrl" json:"authorizationURL,omitempty"`
+	TokenURL         string            `yaml:"tokenUrl" json:"tokenURL,omitempty"`
+	RefreshURL       string            `yaml:"refreshUrl" json:"refreshURL,omitempty"`
+	Scopes           map[string]string `json:"scopes,omitempty"`
 }
 
 var defined = struct{}{}

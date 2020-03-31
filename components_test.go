@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"testing"
 
-	openapi "github.com/nasa9084/go-openapi"
+	openapi "github.com/bentranter/go-openapi"
 	yaml "gopkg.in/yaml.v2"
 )
 

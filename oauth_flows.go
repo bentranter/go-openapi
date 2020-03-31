@@ -1,15 +1,15 @@
 package openapi
 
-import "github.com/nasa9084/go-openapi/oauth"
+import "github.com/bentranter/go-openapi/oauth"
 
 // codebeat:disable[TOO_MANY_IVARS]
 
 // OAuthFlows Object
 type OAuthFlows struct {
-	Implicit          *OAuthFlow
-	Password          *OAuthFlow
-	ClientCredentials *OAuthFlow `yaml:"clientCredentials"`
-	AuthorizationCode *OAuthFlow `yaml:"authorizationCode"`
+	Implicit          *OAuthFlow `json:"implicit,omitempty"`
+	Password          *OAuthFlow `json:"password,omitempty"`
+	ClientCredentials *OAuthFlow `yaml:"clientCredentials,omitempty" json:"clientCredentials,omitempty"`
+	AuthorizationCode *OAuthFlow `yaml:"authorizationCode,omitempty" json:"authorizationCode,omitempty"`
 }
 
 // Validate the values of OAuthFlows Object.

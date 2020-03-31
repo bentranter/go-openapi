@@ -4,9 +4,9 @@ package openapi
 
 // ServerVariable Object
 type ServerVariable struct {
-	Enum        []string
-	Default     string
-	Description string
+	Enum        []string `json:"enum,omitempty"`
+	Default     string   `json:"default,omitempty"`
+	Description string   `json:"description,omitempty"`
 }
 
 // Validate the values of Server Variable object.

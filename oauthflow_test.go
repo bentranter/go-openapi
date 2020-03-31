@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	openapi "github.com/nasa9084/go-openapi"
+	openapi "github.com/bentranter/go-openapi"
 )
 
 type candidateBase struct {

@@ -9,20 +9,20 @@ import (
 
 // PathItem Object
 type PathItem struct {
-	Ref string `yaml:"$ref"`
+	Ref string `yaml:"$ref" json:"$ref,omitempty"`
 
-	Summary     string
-	Description string
-	Get         *Operation
-	Put         *Operation
-	Post        *Operation
-	Delete      *Operation
-	Options     *Operation
-	Head        *Operation
-	Patch       *Operation
-	Trace       *Operation
-	Servers     []*Server
-	Parameters  []*Parameter
+	Summary     string       `json:"summary,omitempty"`
+	Description string       `json:"description,omitempty"`
+	Get         *Operation   `json:"get,omitempty"`
+	Put         *Operation   `json:"put,omitempty"`
+	Post        *Operation   `json:"post,omitempty"`
+	Delete      *Operation   `json:"delete,omitempty"`
+	Options     *Operation   `json:"options,omitempty"`
+	Head        *Operation   `json:"head,omitempty"`
+	Patch       *Operation   `json:"patch,omitempty"`
+	Trace       *Operation   `json:"trace,omitempty"`
+	Servers     []*Server    `json:"servers,omitempty"`
+	Parameters  []*Parameter `json:"parameters,omitempty"`
 }
 
 var methods = []string{

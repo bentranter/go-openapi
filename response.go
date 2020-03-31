@@ -4,12 +4,12 @@ package openapi
 
 // Response Object
 type Response struct {
-	Description string
-	Headers     map[string]*Header
-	Content     map[string]*MediaType
-	Links       map[string]*Link
+	Description string                `json:"description,omitempty"`
+	Headers     map[string]*Header    `json:"headers,omitempty"`
+	Content     map[string]*MediaType `json:"content,omitempty"`
+	Links       map[string]*Link      `json:"links,omitempty"`
 
-	Ref string `yaml:"$ref"`
+	Ref string `yaml:"$ref" json:"$ref,omitempty"`
 }
 
 // Validate the value of Response object.

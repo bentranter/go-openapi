@@ -4,11 +4,11 @@ package openapi
 
 // XML Object
 type XML struct {
-	Name      string
-	Namespace string
-	Prefix    string
-	Attribute bool
-	Wrapped   bool
+	Name      string `json:"name,omitempty"`
+	Namespace string `json:"namespace,omitempty"`
+	Prefix    string `json:"prefix,omitempty"`
+	Attribute bool   `json:"attribute,omitempty"`
+	Wrapped   bool   `json:"wrapped,omitempty"`
 }
 
 // Validate the values of XML object.

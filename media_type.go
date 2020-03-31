@@ -4,10 +4,10 @@ package openapi
 
 // MediaType Object
 type MediaType struct {
-	Schema   *Schema
-	Example  interface{}
-	Examples map[string]*Example
-	Encoding map[string]*Encoding
+	Schema   *Schema              `json:"schema,omitempty"`
+	Example  interface{}          `json:"example,omitempty"`
+	Examples map[string]*Example  `json:"examples,omitempty"`
+	Encoding map[string]*Encoding `json:"encoding,omitempty"`
 }
 
 // Validate the values of MediaType object.

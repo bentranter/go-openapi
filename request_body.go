@@ -4,11 +4,11 @@ package openapi
 
 // RequestBody Object
 type RequestBody struct {
-	Description string
-	Content     map[string]*MediaType
-	Required    bool
+	Description string                `json:"description,omitempty"`
+	Content     map[string]*MediaType `json:"content,omitempty"`
+	Required    bool                  `json:"required,omitempty"`
 
-	Ref string `yaml:"$ref"`
+	Ref string `yaml:"$ref" json:"$ref,omitempty"`
 }
 
 // Validate the values of RequestBody object.

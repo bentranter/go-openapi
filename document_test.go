@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"testing"
 
-	openapi "github.com/nasa9084/go-openapi"
+	openapi "github.com/bentranter/go-openapi"
 )
 
 func TestDocument_Validate(t *testing.T) {
