@@ -10,7 +10,7 @@ import (
 
 // Document represents a OpenAPI Specification document.
 type Document struct {
-	Version      string                 `yaml:"openapi" json:"version,omitempty"`
+	Version      string                 `yaml:"openapi" json:"openapi,omitempty"`
 	Info         *Info                  `json:"info,omitempty"`
 	Servers      []*Server              `json:"servers,omitempty"`
 	Paths        Paths                  `json:"paths,omitempty"`
