@@ -12,7 +12,7 @@ type Operation struct {
 	Summary      string                 `json:"summary,omitempty" yaml:"summary,omitempty"`
 	Description  string                 `json:"description,omitempty" yaml:"description,omitempty"`
 	ExternalDocs *ExternalDocumentation `json:"externalDocs,omitempty" yaml:"externalDocs,omitempty"`
-	OperationID  string                 `json:"operationID,omitempty" yaml:"operationID,omitempty"`
+	OperationID  string                 `json:"operationId,omitempty" yaml:"operationId,omitempty"`
 	Parameters   []*Parameter           `json:"parameters,omitempty" yaml:"parameters,omitempty"`
 	RequestBody  *RequestBody           `json:"requestBody,omitempty" yaml:"requestBody,omitempty"`
 	Responses    Responses              `json:"responses,omitempty" yaml:"responses,omitempty"`
