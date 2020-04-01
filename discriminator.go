@@ -4,8 +4,8 @@ package openapi
 
 // Discriminator Object
 type Discriminator struct {
-	PropertyName string            `yaml:"propertyName" json:"propertyName,omitempty"`
-	Mapping      map[string]string `json:"mapping,omitempty"`
+	PropertyName string            `json:"propertyName,omitempty" yaml:"propertyName,omitempty"`
+	Mapping      map[string]string `json:"mapping,omitempty" yaml:"mapping,omitempty"`
 }
 
 // Validate the values of Descriminator object.

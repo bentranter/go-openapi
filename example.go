@@ -4,10 +4,10 @@ package openapi
 
 // Example Object
 type Example struct {
-	Summary       string      `json:"summary,omitempty"`
-	Description   string      `json:"description,omitempty"`
-	Value         interface{} `json:"value,omitempty"`
-	ExternalValue interface{} `yaml:"externalValue" json:"externalValue,omitempty"`
+	Summary       string      `json:"summary,omitempty" yaml:"summary,omitempty"`
+	Description   string      `json:"description,omitempty" yaml:"description,omitempty"`
+	Value         interface{} `json:"value,omitempty" yaml:"value,omitempty"`
+	ExternalValue interface{} `json:"externalValue,omitempty" yaml:"externalValue,omitempty"`
 
-	Ref string `yaml:"$ref" json:"$ref,omitempty"`
+	Ref string `json:"$ref,omitempty" yaml:"$ref,omitempty"`
 }

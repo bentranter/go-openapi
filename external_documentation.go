@@ -4,8 +4,8 @@ package openapi
 
 // ExternalDocumentation Object
 type ExternalDocumentation struct {
-	Description string `json:"description,omitempty"`
-	URL         string `json:"url,omitempty"`
+	Description string `json:"description,omitempty" yaml:"description,omitempty"`
+	URL         string `json:"url,omitempty" yaml:"url,omitempty"`
 }
 
 // Validate the values of ExternalDocumentaion object.

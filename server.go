@@ -11,9 +11,9 @@ var tmplVarRegexp = regexp.MustCompile("{[^}]+}")
 
 // Server Object
 type Server struct {
-	URL         string                     `json:"url,omitempty"`
-	Description string                     `json:"description,omitempty"`
-	Variables   map[string]*ServerVariable `json:"variables,omitempty"`
+	URL         string                     `json:"url,omitempty" yaml:"url,omitempty"`
+	Description string                     `json:"description,omitempty" yaml:"description,omitempty"`
+	Variables   map[string]*ServerVariable `json:"variables,omitempty" yaml:"variables,omitempty"`
 }
 
 // Validate the values of Server object.

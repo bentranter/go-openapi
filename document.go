@@ -10,14 +10,14 @@ import (
 
 // Document represents a OpenAPI Specification document.
 type Document struct {
-	Version      string                 `yaml:"openapi" json:"openapi,omitempty"`
-	Info         *Info                  `json:"info,omitempty"`
-	Servers      []*Server              `json:"servers,omitempty"`
-	Paths        Paths                  `json:"paths,omitempty"`
-	Components   *Components            `json:"components,omitempty"`
-	Security     []*SecurityRequirement `json:"security,omitempty"`
-	Tags         []*Tag                 `json:"tags,omitempty"`
-	ExternalDocs *ExternalDocumentation `yaml:"externalDocs" json:"externalDocs,omitempty"`
+	Version      string                 `json:"openapi" yaml:"openapi"`
+	Info         *Info                  `json:"info,omitempty" yaml:"info,omitempty"`
+	Servers      []*Server              `json:"servers,omitempty" yaml:"servers,omitempty"`
+	Paths        Paths                  `json:"paths,omitempty" yaml:"paths,omitempty"`
+	Components   *Components            `json:"components,omitempty" yaml:"components,omitempty"`
+	Security     []*SecurityRequirement `json:"security,omitempty" yaml:"security,omitempty"`
+	Tags         []*Tag                 `json:"tags,omitempty" yaml:"tags,omitempty"`
+	ExternalDocs *ExternalDocumentation `json:"externalDocs,omitempty" yaml:"externalDocs,omitempty"`
 }
 
 // Validate the values of spec.

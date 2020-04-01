@@ -4,21 +4,21 @@ package openapi
 
 // Header Object
 type Header struct {
-	Description     string `json:"description,omitempty"`
-	Required        bool   `json:"required,omitempty"`
-	Deprecated      string `json:"deprecated,omitempty"`
-	AllowEmptyValue bool   `yaml:"allowEmptyValue" json:"allowEmptyValue,omitempty"`
+	Description     string `json:"description" yaml:"description"`
+	Required        bool   `json:"required,omitempty" yaml:"required,omitempty"`
+	Deprecated      string `json:"deprecated,omitempty" yaml:"deprecated,omitempty"`
+	AllowEmptyValue bool   `json:"allowEmptyValue,omitempty" yaml:"allowEmptyValue,omitempty"`
 
-	Style         string              `json:"style,omitempty"`
-	Explode       bool                `json:"explode,omitempty"`
-	AllowReserved bool                `yaml:"allowReserved" json:"allowReserved,omitempty"`
-	Schema        *Schema             `json:"schema,omitempty"`
-	Example       interface{}         `json:"example,omitempty"`
-	Examples      map[string]*Example `json:"examples,omitempty"`
+	Style         string              `json:"style,omitempty" yaml:"style,omitempty"`
+	Explode       bool                `json:"explode,omitempty" yaml:"explode,omitempty"`
+	AllowReserved bool                `json:"allowReserved,omitempty" yaml:"allowReserved,omitempty"`
+	Schema        *Schema             `json:"schema,omitempty" yaml:"schema,omitempty"`
+	Example       interface{}         `json:"example,omitempty" yaml:"example,omitempty"`
+	Examples      map[string]*Example `json:"examples,omitempty" yaml:"examples,omitempty"`
 
-	Content map[string]*MediaType `json:"content,omitempty"`
+	Content map[string]*MediaType `json:"content,omitempty" yaml:"content,omitempty"`
 
-	Ref string `yaml:"$ref" json:"$ref,omitempty"`
+	Ref string `json:"$ref,omitempty" yaml:"$ref,omitempty"`
 }
 
 // Validate the values of Header object.

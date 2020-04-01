@@ -9,7 +9,7 @@ OpenAPI Specification object model
 
 This is a fork of https://github.com/nasa9084/go-openapi. It was changed to add support for:
   * JSON marshalling.
-  * Omitting empty fields (when encoding to JSON).
+  * Omitting empty fields.
 
 **This package is still under development, so the API will be changed without any notification**
 

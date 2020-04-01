@@ -8,12 +8,12 @@ import (
 
 // Info Object
 type Info struct {
-	Title          string   `json:"title,omitempty"`
-	Description    string   `json:"description,omitempty"`
-	TermsOfService string   `yaml:"termsOfService" json:"termsOfService,omitempty"`
-	Contact        *Contact `json:"contact,omitempty"`
-	License        *License `json:"license,omitempty"`
-	Version        string   `json:"version,omitempty"`
+	Title          string   `json:"title,omitempty" yaml:"title,omitempty"`
+	Description    string   `json:"description,omitempty" yaml:"description,omitempty"`
+	TermsOfService string   `json:"termsOfService,omitempty" yaml:"termsOfService,omitempty"`
+	Contact        *Contact `json:"contact,omitempty" yaml:"contact,omitempty"`
+	License        *License `json:"license,omitempty" yaml:"license,omitempty"`
+	Version        string   `json:"version,omitempty" yaml:"version,omitempty"`
 }
 
 // Validate the values of Info object.
